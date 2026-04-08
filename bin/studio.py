@@ -953,7 +953,8 @@ PhysiCell Studio is provided "AS IS" without warranty of any kind. &nbsp; In no 
             returnValue = msgBox.exec()
             if returnValue == QMessageBox.Cancel:
                 return
-
+        # Save the xml changes before copying files to new folder
+        self.save_cb()
         dialog = QFileDialog(self)
         dialog.setFileMode(QFileDialog.Directory)
         folder_path = dialog.getExistingDirectory(None, "Select project folder","user_projects",QFileDialog.ShowDirsOnly)
