@@ -967,7 +967,11 @@ PhysiCell Studio is provided "AS IS" without warranty of any kind. &nbsp; In no 
 
         try:
             for f in glob.glob("config/*"):
+                print("-- trying to save ",f)
                 shutil.copy(f, subdir)
+                # shutil.copytree(f, subdir,  dirs_exist_ok=True)
+                # shutil.copytree(f, subdir)
+                # shutil.copytree("config", folder_path)
         except:
             print(f"--- Warning: cannot copy files in config/*")
 
