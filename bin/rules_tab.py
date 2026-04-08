@@ -788,6 +788,8 @@ class Rules(QWidget):
     #-----------------------------------------------------------
     def celltype_combobox_changed_cb(self, idx):
         self.celltype_name = self.celltype_combobox.currentText()
+        if self.celltype_name == '' or self.celltype_name not in self.celldef_tab.param_d:
+            return
         # if self.signal:
         #     print("        signal= ", self.signal)
         # print("   keys= ", self.celldef_tab.param_d.keys())
@@ -828,6 +830,11 @@ class Rules(QWidget):
             key0 = cell_type
         else:
             key0 = self.celltype_combobox.currentText()
+
+        # During project loads, combobox signals can fire while no valid cell type is selected yet.
+        if key0 == '' or key0 not in self.celldef_tab.param_d:
+            return
+
         btokens = behavior.split()
         if len(btokens) == 0:
             return
