@@ -740,6 +740,13 @@ PhysiCell Studio is provided "AS IS" without warranty of any kind. &nbsp; In no 
         self.user_params_tab.clear_gui()
         self.user_params_tab.fill_gui()
 
+    def update_vis_tab(self):
+        # self.vis_tab.init_plot_range(self.config_tab)
+        # self.vis_tab.update_output_dir(self.config_tab.folder.text())
+        # self.vis_tab.reset_model()
+        # self.vis_tab.update_plots()
+        self.vis_tab.clear_plot()
+
 
     def show_sample_model(self):
         logging.debug(f'studio: show_sample_model(): self.config_file = {self.config_file}')
@@ -758,6 +765,10 @@ PhysiCell Studio is provided "AS IS" without warranty of any kind. &nbsp; In no 
         self.setWindowTitle(self.title_prefix + self.config_file)
         if self.model3D_flag:
             self.vis_tab.reset_domain_box()
+        
+        # TechFest demo (April 2026)
+        self.update_vis_tab()
+
 
     def open_as_cb(self):
         # filePath = QFileDialog.getOpenFileName(self,'',".",'*.xml')
