@@ -740,6 +740,29 @@ PhysiCell Studio is provided "AS IS" without warranty of any kind. &nbsp; In no 
         self.user_params_tab.clear_gui()
         self.user_params_tab.fill_gui()
 
+    def update_ICs_tab(self):
+        print("\n\n-------------------------------- studio.py: update_ICs_tab():  getcwd=",os.getcwd())
+        print("        self.current_xml_file =  ",self.current_xml_file )
+        # file_str = os.path.join(os.getcwd(), file_str)
+
+        print("self.config_tab.cells_csv.isChecked() = ",self.config_tab.cells_csv.isChecked())
+        if self.config_tab.cells_csv.isChecked():
+            try:
+                # ics_file = Path( self.config_tab.csv_folder.text(),  self.config_tab.csv_file.text() )
+                # ics_file = os.path.join(os.getcwd(), self.config_tab.csv_folder.text(),  self.config_tab.csv_file.text() )
+                ics_file = Path(os.getcwd(), self.config_tab.csv_folder.text(),  self.config_tab.csv_file.text() )
+                print("   studio.py: update_ICs_tab(), ics_file=",ics_file.resolve() )
+                if ics_file.is_file:
+                    print("   studio.py: update_ICs_tab(), VALID is_file")
+                    self.ics_tab.reset_info()
+                    self.ics_tab.import_from_file(str(ics_file))
+            except:
+                print("   studio.py: update_ICs_tab(), error trying to import ICs file")
+        else:
+            self.ics_tab.reset_info()
+            self.ics_tab.clear_cb()
+            
+
     def update_vis_tab(self):
         # self.vis_tab.init_plot_range(self.config_tab)
         # self.vis_tab.update_output_dir(self.config_tab.folder.text())
@@ -768,6 +791,7 @@ PhysiCell Studio is provided "AS IS" without warranty of any kind. &nbsp; In no 
         
         # TechFest demo (April 2026)
         self.update_vis_tab()
+        self.update_ICs_tab()
 
 
     def open_as_cb(self):
@@ -1137,7 +1161,7 @@ PhysiCell Studio is provided "AS IS" without warranty of any kind. &nbsp; In no 
 
     #---------------------------------
     def load_user_proj_cb(self):
-        print("-------------- load_user_proj_cb")
+        print("studio.py: -------------- load_user_proj_cb")
         if not os.path.isfile(os.path.join(self.current_dir, "main.cpp")):
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)

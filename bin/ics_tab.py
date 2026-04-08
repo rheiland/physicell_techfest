@@ -1099,7 +1099,7 @@ class ICs(QWidget):
         self.reset_model()
 
     def reset_info(self):
-        # print("\nics_tab:  --- reset_info()")
+        print("\nics_tab:  --- reset_info()")
         self.celltype_combobox.clear()
         self.fill_celltype_combobox()
         self.fill_substrate_combobox()
@@ -2193,22 +2193,24 @@ class ICs(QWidget):
     def import_cb(self):
         # filePath = QFileDialog.getOpenFileName(self,'',".",'*.xml')
         filePath = QFileDialog.getOpenFileName(self,'',".")
-        full_path_rules_name = filePath[0]
+        full_path_ics_name = filePath[0]
+        print(f'\nimport_cb(): ---------- type(full_path_ics_name)={type(full_path_ics_name)}')  # =<class 'str'>
 
-        self.import_from_file(full_path_rules_name)
+        self.import_from_file(full_path_ics_name)
 
-    def import_from_file(self, full_path_rules_name):
-        # logging.debug(f'\nimport_cb():  full_path_rules_name ={full_path_rules_name}')
-        print(f'\nimport_cb():  full_path_rules_name ={full_path_rules_name}')
-        basename = os.path.basename(full_path_rules_name)
-        print(f'import_cb():  basename ={basename}')
-        dirname = os.path.dirname(full_path_rules_name)
-        print(f'import_cb():  dirname ={dirname}')
-        # if (len(full_path_rules_name) > 0) and Path(full_path_rules_name):
-        if (len(full_path_rules_name) > 0) and Path(full_path_rules_name).is_file():
-            print("import_from_file(full_path_rules_name):  filePath is valid")
+    def import_from_file(self, full_path_ics_name):
+        # logging.debug(f'\nimport_cb():  full_path_ics_name ={full_path_ics_name}')
+        print(f'\nics_tab.py: import_from_file()---------- type(full_path_ics_name)={type(full_path_ics_name)}')  # pathlib.PosixPath
+        print(f'import_from_file():  full_path_ics_name ={full_path_ics_name}')
+        basename = os.path.basename(full_path_ics_name)
+        print(f'import_from_file():  basename ={basename}')
+        dirname = os.path.dirname(full_path_ics_name)
+        print(f'import_from_file():  dirname ={dirname}')
+        # if (len(full_path_ics_name) > 0) and Path(full_path_ics_name):
+        if (len(full_path_ics_name) > 0) and Path(full_path_ics_name).is_file():
+            print("import_from_file(full_path_ics_name):  filePath is valid")
             # logging.debug(f'     filePath is valid')
-            print("len(full_path_rules_name) = ", len(full_path_rules_name) )
+            print("len(full_path_ics_name) = ", len(full_path_ics_name) )
 
             cell_types_l = [self.celltype_combobox.itemText(i) for i in range(self.celltype_combobox.count())]
             print(cell_types_l)
@@ -2229,7 +2231,7 @@ class ICs(QWidget):
             # x,y,z,type,volume,cycle entry,custom:GFP,custom:sample
             # -49.52373671227464,-85.42875790157267,0.0,acell
             zval = 0.0   # only doing 2D now
-            with open(full_path_rules_name, newline='') as csvfile:
+            with open(full_path_ics_name, newline='') as csvfile:
                 states_reader = csv.reader(csvfile, delimiter=',')
                 count = 0
                 for row in states_reader:
