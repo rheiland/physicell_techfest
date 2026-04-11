@@ -1,0 +1,2 @@
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoExit -Command "& { cd $HOME ; .\venv\Scripts\Activate.ps1; cd .\Downloads\physicell_techfest-main\physicell_techfest-main; python .\bin\studio.py }"
+
